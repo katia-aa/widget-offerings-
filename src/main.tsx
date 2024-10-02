@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { ChakraProvider } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Route,
   Routes,
   Navigate,
@@ -20,9 +20,8 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <QueryClientProvider client={queryClient}>
         <Router basename="/widget-offerings-">
           <Routes>
-            <Route path="/" element={<Homepage />} />{" "}
-            <Route path="/banner-customizer" element={<BannerCustomizer />} />{" "}
-            {/* Define the BannerCustomizer route */}
+            <Route path="/" element={<Homepage />} />
+            <Route path="/banner-customizer" element={<BannerCustomizer />} />
           </Routes>
         </Router>
       </QueryClientProvider>
