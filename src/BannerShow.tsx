@@ -1,24 +1,58 @@
-import React, { useState } from 'react';
-import { Box, Input, FormControl, FormLabel, Textarea, Button, Select, Heading } from '@chakra-ui/react';
+import React, { useState, useEffect, useRef } from "react";
+import {
+  Box,
+  Input,
+  FormControl,
+  FormLabel,
+  Textarea,
+  Button,
+  Select,
+  Heading,
+} from "@chakra-ui/react";
 
 const BannerCustomizer = () => {
   const [text, setText] = useState("This is the main text.");
-  const [secondaryText, setSecondaryText] = useState("This is the secondary text.");
+  const [secondaryText, setSecondaryText] = useState(
+    "This is the secondary text."
+  );
   const [variant, setVariant] = useState("DEFAULT");
+
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
   const embedCode = `<div id="banner" data-text="${text}" data-variant="${variant}" data-secondaryText="${secondaryText}"></div>\n<script src="https://main--astrea-banner-widget.netlify.app/index.js"></script>`;
 
+  // Function to update the iframe's content
+  const updateIframe = () => {
+    const iframe = iframeRef.current;
+    if (iframe) {
+      const iframeWindow = iframe.contentWindow;
+      const bannerDiv = iframeWindow?.document.getElementById("banner");
+
+      if (bannerDiv) {
+        bannerDiv.setAttribute("data-text", text);
+        bannerDiv.setAttribute("data-secondaryText", secondaryText);
+        bannerDiv.setAttribute("data-variant", variant);
+        iframeWindow?.document.body.appendChild(bannerDiv);
+        iframeWindow?.location.reload(); // Reload to apply changes
+      }
+    }
+  };
+
+  // Update the iframe whenever the customization changes
+  useEffect(() => {
+    updateIframe();
+  }, [text, secondaryText, variant]);
+
   return (
     <Box maxW="600px" mx="auto" p={4}>
-      <Heading mb={6} textAlign="center">Banner Customizer</Heading>
-      
+      <Heading mb={6} textAlign="center">
+        Banner Customizer
+      </Heading>
+
       {/* Form Section */}
       <FormControl id="main-text" mb={4}>
         <FormLabel>Main Text</FormLabel>
-        <Input
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        />
+        <Input value={text} onChange={(e) => setText(e.target.value)} />
       </FormControl>
 
       <FormControl id="secondary-text" mb={4}>
@@ -40,10 +74,12 @@ const BannerCustomizer = () => {
 
       {/* Preview Section */}
       <Box bg="gray.100" p={4} borderRadius="md" mb={6}>
-        <Box id="banner" data-text={text} data-variant={variant} data-secondarytext={secondaryText}>
-          <p>{text}</p>
-          <p>{secondaryText}</p>
-        </Box>
+        <iframe
+          ref={iframeRef}
+          src="/widget-offerings-/banner-preview.html"
+          title="Banner Preview"
+          style={{ width: "100%", height: "300px", border: "none" }}
+        ></iframe>
       </Box>
 
       {/* Embed Code Section */}
@@ -51,7 +87,10 @@ const BannerCustomizer = () => {
         <FormLabel>Embed Code</FormLabel>
         <Textarea value={embedCode} readOnly />
       </FormControl>
-      <Button colorScheme="blue" onClick={() => navigator.clipboard.writeText(embedCode)}>
+      <Button
+        colorScheme="blue"
+        onClick={() => navigator.clipboard.writeText(embedCode)}
+      >
         Copy Snippet
       </Button>
     </Box>
