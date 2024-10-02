@@ -18,13 +18,10 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <ChakraProvider>
       <QueryClientProvider client={queryClient}>
-        <Router>
+        <Router basename="/widget-offerings-">
           <Routes>
-            <Route path="/widget-offerings-/" element={<Homepage />} />{" "}
-            <Route
-              path="/widget-offerings-/banner-customizer"
-              element={<BannerCustomizer />}
-            />{" "}
+            <Route path="/" element={<Homepage />} />{" "}
+            <Route path="/banner-customizer" element={<BannerCustomizer />} />{" "}
             {/* Define the BannerCustomizer route */}
           </Routes>
         </Router>
