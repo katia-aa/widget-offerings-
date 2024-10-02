@@ -17,7 +17,15 @@ export default function Homepage() {
   return (
     <Box bg="gray.100" minH="100vh">
       {/* Header Section */}
-      <Box bg="gray.900" color="white" py={[8, 16]} px={[4, 8]}>
+      <Box
+        color="gray.900"
+        py={[8, 16]}
+        px={[4, 8]}
+        height="100vh"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
         <VStack spacing={6} textAlign="center">
           <Heading as="h1" size={["xl", "2xl"]} fontWeight="bold">
             Powerful Widgets for Your Website in Minutes
@@ -26,63 +34,102 @@ export default function Homepage() {
             No coding needed. Boost engagement and conversions instantly with
             simple, easy-to-use widgets.
           </Text>
-          <Button size="lg" colorScheme="teal" px={8}>
+          <Button
+            size="lg"
+            colorScheme="teal"
+            px={8}
+            onClick={() => {
+              const featuresSection =
+                document.getElementById("features-section");
+              if (featuresSection) {
+                featuresSection.scrollIntoView({ behavior: "smooth" });
+              }
+            }}
+          >
             Get Started
           </Button>
         </VStack>
       </Box>
-
       {/* Features Section */}
-      <Box py={[8, 16]} px={[4, 8]} bg="white">
-        <Heading as="h2" size="xl" textAlign="center" mb={8}>
-          Widgets You Can Add
-        </Heading>
-        <SimpleGrid columns={[1, null, 2]} spacing={10} maxW="1200px" mx="auto">
-          {/* Newsletter Widget */}
-          <Box
-            p={6}
-            border="1px solid"
-            borderColor="gray.200"
-            borderRadius="lg"
-            textAlign="center"
+      <Box
+        id="features-section"
+        py={[8, 16]}
+        px={[4, 8]}
+        bg="white"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        minHeight="50vh"
+      >
+        <Box mx="auto">
+          <Heading as="h2" size="xl" textAlign="center" mb={8}>
+            Widgets You Can Add
+          </Heading>
+          <SimpleGrid
+            columns={[1, null, 2]}
+            spacing={10}
+            maxW="1200px"
+            mx="auto"
           >
-            <Icon as={FiMail} w={12} h={12} color="teal.500" mb={4} />
-            <Heading as="h3" size="lg" mb={4}>
-              Newsletter Popup
-            </Heading>
-            <Text fontSize="md" mb={6}>
-              Easily add a customizable newsletter sign-up form to your site and
-              grow your audience.
-            </Text>
-            <Button colorScheme="teal" size="md">
-              Try it Now
-            </Button>
-          </Box>
+            {/* Newsletter Widget */}
+            <Box
+              p={6}
+              border="1px solid"
+              borderColor="gray.200"
+              borderRadius="lg"
+              textAlign="center"
+              height="fit-content"
+            >
+              <Icon as={FiMail} w={12} h={12} color="teal.500" mb={4} />
+              <Heading as="h3" size="lg" mb={4}>
+                Newsletter Popup
+              </Heading>
+              <Text fontSize="md" mb={6}>
+                Easily add a customizable newsletter sign-up form to your site
+                and grow your audience.
+              </Text>
+              <Button
+                colorScheme="teal"
+                size="md"
+                as={Link}
+                href="/widget-offerings-/banner-customizer"
+              >
+                Try it Now
+              </Button>
+            </Box>
 
-          {/* General Popup Widget */}
-          <Box
-            p={6}
-            border="1px solid"
-            borderColor="gray.200"
-            borderRadius="lg"
-            textAlign="center"
-          >
-            <Icon as={FiMessageSquare} w={12} h={12} color="teal.500" mb={4} />
-            <Heading as="h3" size="lg" mb={4}>
-              General Popup
-            </Heading>
-            <Text fontSize="md" mb={6}>
-              Promote offers or announcements with an engaging popup on your
-              website.
-            </Text>
-            <Button colorScheme="teal" size="md">
-              Learn More
-            </Button>
-          </Box>
-        </SimpleGrid>
+            {/* General Popup Widget */}
+            <Box
+              p={6}
+              border="1px solid"
+              borderColor="gray.200"
+              borderRadius="lg"
+              textAlign="center"
+              height="fit-content"
+            >
+              <Icon
+                as={FiMessageSquare}
+                w={12}
+                h={12}
+                color="teal.500"
+                mb={4}
+              />
+              <Heading as="h3" size="lg" mb={4}>
+                General Popup
+              </Heading>
+              <Text fontSize="md" mb={6}>
+                Promote offers or announcements with an engaging popup on your
+                website.
+              </Text>
+              <Button colorScheme="teal" size="md">
+                Learn More
+              </Button>
+            </Box>
+          </SimpleGrid>
+        </Box>
       </Box>
 
-      <Box py={[8, 16]} px={[4, 8]} bg="gray.50">
+      <Box py={[8, 16]} px={[4, 8]} bg="gray.50" minHeight="50vh">
         <Heading as="h2" size="xl" textAlign="center" mb={8}>
           How It Works
         </Heading>
